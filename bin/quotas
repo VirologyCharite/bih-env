@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -Eeuo pipefail
+
+helpers=/etc/profile.d/gpfs-helpers.sh
+
+if [ -f $helpers ]
+then
+    . $helpers
+
+    bih-gpfs-report-quota project civ-diagnostics
+    echo
+    bih-gpfs-report-quota group ag_drosten
+    echo
+    bih-gpfs-report-quota user $USER
+else
+    echo "Shell function file $helpers not found!" >&2
+    exit 1
+fi
