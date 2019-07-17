@@ -1,7 +1,3 @@
-#!/bin/bash
-
-set -Eeuo pipefail
-
 top=/fast/projects/civ-diagnostics/work
 bashrc=$top/civ-diagnostics-env/.bashrc
 bin=$top/civ-diagnostics-env/bin
