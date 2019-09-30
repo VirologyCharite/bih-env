@@ -31,7 +31,9 @@ function civ_setup()
 
     if [ -f $activate ]
     then
-        . $activate
+        if [ -z "$VIRTUAL_ENV" ]
+           . $activate
+        fi
     else
         echo "BIH pipeline virtualenv activate script ($activate) does not exist!" >&2
     fi
