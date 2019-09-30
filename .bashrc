@@ -1,6 +1,7 @@
-top=/fast/projects/civ-diagnostics/work
-bashrc=$top/bih-env/.bashrc
-bin=$top/bih-env/bin
+civdir=/fast/work/projects/civ-diagnostics
+civlocal=$civdir/root/usr/local
+bashrc=$civlocal/bih-env/.bashrc
+bin=$civlocal/bih-env/bin
 
 function civ_setup()
 {
@@ -9,10 +10,10 @@ function civ_setup()
 
     local civDate=20190910
 
-    export CIV_PROTEIN_GENOME_DATABASE=$top/databases/civ/$civDate-protein-genome.db
-    export CIV_DIAMOND_DATABASE=$top/databases/civ/$civDate-rna-proteins.dmnd
-    export CIV_TAXONOMY_DATABASE=$top/databases/civ/$civDate-taxonomy.db
-    export CIV_BWA_DATABASE_DIR=$top/databases/bwa
+    export CIV_PROTEIN_GENOME_DATABASE=$civdir/databases/civ/$civDate-protein-genome.db
+    export CIV_DIAMOND_DATABASE=$civdir/databases/civ/$civDate-rna-proteins.dmnd
+    export CIV_TAXONOMY_DATABASE=$civdir/databases/civ/$civDate-taxonomy.db
+    export CIV_BWA_DATABASE_DIR=$civdir/databases/bwa
 
     # This is used by various dark-matter scripts. Set it in case we happen
     # to need to run any of them manually.
