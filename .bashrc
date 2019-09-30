@@ -32,6 +32,7 @@ function civ_setup()
     if [ -f $activate ]
     then
         if [ -z "$VIRTUAL_ENV" ]
+        then
            . $activate
         fi
     else
