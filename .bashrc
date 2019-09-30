@@ -1,15 +1,22 @@
 civdir=/fast/work/projects/civ-diagnostics
 civlocal=$civdir/root/usr/local
+linuxbrew=$civdir/packages/linuxbrew
 bashrc=$civlocal/bih-env/.bashrc
 bin=$civlocal/bih-env/bin
 
 function civ_setup()
 {
     umask 002
-    PATH=$bin:$PATH
+
+    export HOMEBREW_PREFIX=$linuxbrew
+    export HOMEBREW_CELLAR=$linuxbrew/Cellar
+    export HOMEBREW_REPOSITORY=$linuxbrew/Homebrew
+    export MANPATH=$linuxbrew/share/man:$MANPATH
+    export INFOPATH=$linuxbrew/share/info:$INFOPATH
+
+    PATH=$bin:$linuxbrew/bin:$linuxbrew/sbin:$PATH
 
     local civDate=20190910
-
     export CIV_PROTEIN_GENOME_DATABASE=$civdir/databases/civ/$civDate-protein-genome.db
     export CIV_DIAMOND_DATABASE=$civdir/databases/civ/$civDate-rna-proteins.dmnd
     export CIV_TAXONOMY_DATABASE=$civdir/databases/civ/$civDate-taxonomy.db
