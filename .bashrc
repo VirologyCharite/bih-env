@@ -25,6 +25,14 @@ function civ_setup()
     # This is used by various dark-matter scripts. Set it in case we happen
     # to need to run any of them manually.
     export DARK_MATTER_TAXONOMY_DATABASE=$CIV_TAXONOMY_DATABASE
+
+    activate=$civlocal/bih-pipeline-env/bin/activate
+    if [ -f $activate ]
+    then
+        . $activate
+    else
+        echo "BIH pipeline virtualenv activate script ($activate) does not exist!" >&2
+    fi
 }
 
 # This is a bit awkwardly done. I don't want to call exit because that will
