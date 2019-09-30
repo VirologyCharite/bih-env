@@ -16,17 +16,19 @@ function civ_setup()
 
     PATH=$bin:$linuxbrew/bin:$linuxbrew/sbin:$PATH
 
+    activate=$civlocal/bih-pipeline-env/bin/activate
+
     local civDate=20190910
     export CIV_PROTEIN_GENOME_DATABASE=$civdir/databases/civ/$civDate-protein-genome.db
     export CIV_DIAMOND_DATABASE=$civdir/databases/civ/$civDate-rna-proteins.dmnd
     export CIV_TAXONOMY_DATABASE=$civdir/databases/civ/$civDate-taxonomy.db
     export CIV_BWA_DATABASE_DIR=$civdir/databases/bwa
+    export CIV_ENVIRONMENT_ACTIVATION_SCRIPT=$activate
 
     # This is used by various dark-matter scripts. Set it in case we happen
     # to need to run any of them manually.
     export DARK_MATTER_TAXONOMY_DATABASE=$CIV_TAXONOMY_DATABASE
 
-    activate=$civlocal/bih-pipeline-env/bin/activate
     if [ -f $activate ]
     then
         . $activate
