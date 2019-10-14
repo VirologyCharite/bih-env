@@ -8,11 +8,11 @@ esac
 
 umask 002
 
-top=$(/bin/pwd)
+raw=/fast/work/projects/civ-diagnostics/raw
 
-if [ $top != /fast/work/projects/civ-diagnostics/raw ]
+if [ $(/bin/pwd) != $raw ]
 then
-    echo "You must run this command in '$top'." >&2
+    echo "You must run this command in '$raw'." >&2
     exit 1
 fi
 
