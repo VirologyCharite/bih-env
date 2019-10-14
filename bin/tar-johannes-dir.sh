@@ -10,12 +10,37 @@ umask 002
 
 top=$(/bin/pwd)
 
+if [ $top != /fast/work/projects/civ-diagnostics/raw ]
+then
+    echo "You must run this command in '$top'." >&2
+    exit 1
+fi
+
+log=tar-johannes-dir-LOG
+echo >> $log
+echo "Run at $(date) by user $USER with command line arg(s):" >> $log
+for dir in "$@"
+do
+    echo "    $dir"
+done >> $log
+
 # outdir=/fast/groups/ag_drosten/work
 outdir=.
 
 for dir in "$@"
 do
     echo "Processing $dir"
+
+    # Check that some FASTQ files are actually present under $dir, else the
+    # loop at bottom to remove empty directories (once the non-FASTQ files
+    # are tarred and then deleted from their original locations) will
+    # remove the whole of $dir.
+    fastqCount=$(find $dir -type f -name '*.fastq.gz' | wc -l)
+    if [ "$fastqCount" -eq 0 ]
+    then
+        echo "No .fastq.gz files found under directory '$dir'. Skipping." >&2
+        continue
+    fi
 
     tarfile=$outdir/$dir.tar.gz
     stdout=$outdir/$dir.tar.stdout
@@ -29,6 +54,12 @@ do
     echo "  Removing non-fastq"
     find $dir -type f \( \! -name '*.fastq.gz' \) -print0 | xargs -0 -n 500 rm
 
+    # This chmod (and the following one) fails for me (Terry) on the BIH
+    # cluster when trying to set perms on files owned by Johannes, even
+    # when the group I am in has write access to the file in question and
+    # its directory. Don't know why. So these two chmod commands commented
+    # out for now.
+    #
     # Make all FASTQ files read only.
     # find $dir -type f -print0 | xargs -0 -n 500 chmod a-w
 
