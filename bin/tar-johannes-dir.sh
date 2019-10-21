@@ -45,6 +45,13 @@ do
     tarfile=$outdir/$dir.tar.gz
     stdout=$outdir/$dir.tar.stdout
     stderr=$outdir/$dir.tar.stderr
+
+    # Set all files and directories under $dir to be group accessible.
+    # Otherwise the umask on the machine they were scp'd from may restrict
+    # others on this (BIH) machine.
+    find $dir -type f -print0 | xargs -0 -n 500 chmod g+rw
+    find $dir -type d -print0 | xargs -0 -n 500 chmod g+rwx
+
     echo "  Running tar -c -f $tarfile -v -z --exclude '*.fastq.gz' $dir > $stdout 2> $stderr"
     tar -c -f $tarfile -v -z --exclude '*.fastq.gz' $dir > $stdout 2> $stderr
     chmod a-w $tarfile
