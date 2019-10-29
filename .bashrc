@@ -2,6 +2,7 @@ civdir=/fast/work/projects/civ-diagnostics
 civlocal=$civdir/root/usr/local
 bashrc=$civlocal/bih-env/.bashrc
 bin=$civlocal/bih-env/bin
+pipelineBin=$civlocal/bih-pipeline/bin
 
 function civ_setup()
 {
@@ -13,7 +14,7 @@ function civ_setup()
     export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
     export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
 
-    PATH=$bin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH
+    PATH=$bin:$pipelineBin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH
 
     activate=$civlocal/bih-pipeline-env/bin/activate
 
