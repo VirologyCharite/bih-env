@@ -13,6 +13,7 @@ function civ_setup()
     export HOMEBREW_REPOSITORY=$HOME/.linuxbrew/Homebrew
     export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
     export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
+    export PYTHONPATH=$civlocal/bih-pipeline
 
     PATH=$bin:$pipelineBin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH
 
