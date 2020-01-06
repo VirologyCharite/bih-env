@@ -4,6 +4,16 @@ bashrc=$civlocal/bih-env/.bashrc
 bin=$civlocal/bih-env/bin
 pipelineBin=$civlocal/bih-pipeline/bin
 
+function ssh-restore ()
+{
+    if [ -z "$TMUX" ]
+    then
+        echo 'Not in a tmux session!' >&2
+    else
+        eval $(tmux show-environment | egrep '^SSH_' | sed -e 's/=/="/' -e 's/$/"/')
+    fi
+}
+
 function civ_setup()
 {
     umask 002
@@ -14,6 +24,8 @@ function civ_setup()
     export MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
     export INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
     export PYTHONPATH=$civlocal/bih-pipeline
+    # export LIBRARY_PATH=$civdir/packages/linuxbrew/lib
+    # export LD_LIBRARY_PATH=$civdir/packages/linuxbrew/lib
 
     PATH=$bin:$pipelineBin:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH
 

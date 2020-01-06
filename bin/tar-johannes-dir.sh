@@ -56,6 +56,13 @@ do
     tar -c -f $tarfile -v -z --exclude '*.fastq.gz' $dir > $stdout 2> $stderr
     chmod a-w $tarfile
 
+    # Remove the stderr file if it is empty. At this point it's almost
+    # certain to be empty because tar will write to stderr and exit
+    # non-zero if there was an error, so we will have already exited in
+    # that case. So this is really just a cleanup, with a check in case
+    # stderr was written to but tar nevertheless exited with status zero.
+    test -s $stderr || rm $stderr
+
     # Remove all files whose names do not end in .fastq.gz because these
     # have just been put into the archive.
     echo "  Removing non-fastq"
